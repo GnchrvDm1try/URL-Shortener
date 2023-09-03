@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Shortener.Models;
+
 namespace Shortener
 {
     public class Program
@@ -9,6 +12,13 @@ namespace Shortener
             // Add services to the container.
 
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<ShortenerContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("defaultConnection")!));
+
+            builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            }));
 
             var app = builder.Build();
 
@@ -22,7 +32,7 @@ namespace Shortener
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-
+            app.UseCors("corsapp");
 
             app.MapControllerRoute(
                 name: "default",

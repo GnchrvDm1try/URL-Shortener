@@ -1,0 +1,10 @@
+<form [formGroup]="form" method="post" (ngSubmit)="submit()">
+  <div class="error" *ngIf="errorMessage !== undefined">
+    <span>{{errorMessage}}</span>
+  </div>
+  <div class="flex flex-col">
+    <label>url<span>*</span></label>
+    <input type="text" name="url" formControlName="url" maxlength="400" />
+  </div>
+  <button [disabled]="form.invalid" type="submit">Add url</button>
+</form>

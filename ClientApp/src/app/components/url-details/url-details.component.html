@@ -1,0 +1,12 @@
+<div *ngIf="url !== undefined; else undef">
+  <h2>URL Details:</h2>
+  <h3>Full URL</h3>
+  <p>{{url.url}}</p>
+  <h3>Shorten URL</h3>
+  <p>{{url.shortenUrl}}</p>
+  <h3>Added by</h3>
+  <p>{{url.createdBy.login}}</p>
+  <h3>Added at</h3>
+  <p>{{url.createdAt.toLocaleString()}}</p>
+</div>
+<ng-template #undef><h2>Loading...</h2></ng-template>

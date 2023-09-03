@@ -1,0 +1,18 @@
+<div>
+  <h2>URLs Table:</h2>
+  <app-url-form></app-url-form>
+  <table>
+    <tr>
+      <th>id</th>
+      <th>Full URL</th>
+      <th>Shorten URL</th>
+    </tr>
+    <tr *ngFor="let url of urls">
+      <td>
+        <a [routerLink]="['Details', url.id]">{{url.id}}</a>
+      </td>
+      <td>{{url.url}}</td>
+      <td>{{url.shortenUrl}}</td>
+    </tr>
+  </table>
+</div>

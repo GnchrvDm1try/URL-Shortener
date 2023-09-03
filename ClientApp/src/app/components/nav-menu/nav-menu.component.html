@@ -1,0 +1,19 @@
+<header id="header">
+  <nav class="container">
+    <a [routerLink]="['/']"><h1>Shortener</h1></a>
+    <ul class="flex font-medium text-lg space-x-[20px]">
+      <li *ngIf="isLoggedIn">
+        {{login}}
+      </li>
+      <li *ngIf="isLoggedIn">
+        <button>Logout</button>
+      </li>
+      <li *ngIf="!isLoggedIn">
+        <a [routerLink]="['Login']">Login</a>
+      </li>
+      <li *ngIf="!isLoggedIn">
+        <a [routerLink]="['Register']">Register</a>
+      </li>
+    </ul>
+  </nav>
+</header>
