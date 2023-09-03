@@ -19,7 +19,6 @@ export class NavMenuComponent {
   }
 
   public get isLoggedIn(): boolean {
-    console.log(this.authService.isUserAuthenticated())
     return this.authService.isUserAuthenticated();
   }
 

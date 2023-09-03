@@ -15,14 +15,20 @@ namespace Shortener.Controllers
             _context = context;
         }
 
+        [HttpGet("Navigate/{shortenUrl}")]
+        public async Task<IActionResult> Navigate(string shortenUrl)
+        {
+            URL? url = await _context.URLs.FirstOrDefaultAsync(u => u.ShortenUrl == shortenUrl);
+            if (url is not null)
+                return Redirect(url.Url);
+            return BadRequest("Could not find such shorten url");
+        }
+
         // GET: URLs/GetAllUrls
         [HttpGet("GetAllUrls")]
         public async Task<IActionResult> GetAllUrls()
         {
             return Ok(await _context.URLs.ToListAsync());
-            //return _context.URLs != null ?
-            //            Ok(await _context.URLs.ToListAsync()) :
-            //            Problem("Entity set 'ShortenerContext.URLs'  is null.");
         }
 
         // GET: URLs/Details/id
@@ -41,15 +47,16 @@ namespace Shortener.Controllers
 
         // POST: URLs/Create
         [HttpPost("Create")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Url,ShortenUrl,CreatedAt")] URL uRL)
+        public async Task<IActionResult> Create([FromBody] UrlForm form)
         {
+            URL? url = null;
             if (ModelState.IsValid)
             {
-                _context.Add(uRL);
+                url = new URL(form);
+                _context.Add(Url);
                 await _context.SaveChangesAsync();
             }
-            return Ok(uRL);
+            return url is null ? Ok(url) : BadRequest();
         }
 
         // GET: URLs/Edit/5
@@ -64,41 +71,6 @@ namespace Shortener.Controllers
             if (uRL == null)
             {
                 return NotFound();
-            }
-            return Ok(uRL);
-        }
-
-        // POST: URLs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Url,ShortenUrl,CreatedAt")] URL uRL)
-        {
-            if (id != uRL.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(uRL);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!URLExists(uRL.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             }
             return Ok(uRL);
         }

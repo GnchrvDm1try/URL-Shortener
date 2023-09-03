@@ -1,6 +1,6 @@
 <div>
   <h2>URLs Table:</h2>
-  <app-url-form></app-url-form>
+  <app-url-form *ngIf="isLoggedIn"></app-url-form>
   <table>
     <tr>
       <th>id</th>
@@ -11,7 +11,7 @@
       <td>
         <a [routerLink]="['Details', url.id]">{{url.id}}</a>
       </td>
-      <td>{{url.url}}</td>
+      <td><a href="{{url.url}}">{{url.url}}</a></td>
       <td>{{url.shortenUrl}}</td>
     </tr>
   </table>

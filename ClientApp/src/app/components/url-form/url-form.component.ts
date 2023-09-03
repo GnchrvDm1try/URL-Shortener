@@ -1,7 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UrlService } from '../../services/url.service';
 
@@ -14,14 +12,14 @@ export class UrlFormComponent {
   form: FormGroup;
   errorMessage: string | undefined;
 
-  private readonly urlService: UrlService;
   private readonly formBuilder: FormBuilder;
-  private readonly router: Router;
+  private readonly authService: AuthService;
+  private readonly urlService: UrlService;
 
-  constructor(urlService: UrlService, formBuilder: FormBuilder, router: Router) {
-    this.urlService = urlService;
+  constructor(formBuilder: FormBuilder, authService: AuthService, urlService: UrlService) {
     this.formBuilder = formBuilder;
-    this.router = router;
+    this.authService = authService;
+    this.urlService = urlService;
     this.form = this.getFormGroupInstance();
   }
 
@@ -32,7 +30,8 @@ export class UrlFormComponent {
   private getFormGroupInstance() {
     let registrationForm: FormGroup;
     registrationForm = this.formBuilder.group({
-      url: new FormControl(null, Validators.required)
+      url: new FormControl(null, Validators.required),
+      creatorId: new FormControl(this.authService.userId)
     });
     return registrationForm;
   }

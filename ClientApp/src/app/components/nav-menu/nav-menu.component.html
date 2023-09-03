@@ -6,7 +6,7 @@
         {{login}}
       </li>
       <li *ngIf="isLoggedIn">
-        <button>Logout</button>
+        <button (click)="logout()">Logout</button>
       </li>
       <li *ngIf="!isLoggedIn">
         <a [routerLink]="['Login']">Login</a>

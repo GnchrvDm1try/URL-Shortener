@@ -7,9 +7,8 @@
     <input type="text" name="login" formControlName="login" maxlength="100" />
     <div *ngIf="form.get('login') as lg">
       <div *ngIf="lg?.touched && lg?.invalid">
-        <span *ngIf="lg.errors?.required">You have to provide your first name</span>
-        <span *ngIf="lg.errors?.minlength">The first name has to be 4 or more characters long</span>
-        <span *ngIf="lg.errors?.pattern">The first name has to start with a letter and consist only of letters, space, - or '</span>
+        <span *ngIf="lg.errors?.required">You have to provide login</span>
+        <span *ngIf="lg.errors?.minlength">The login has to be 4 or more characters long</span>
       </div>
     </div>
   </div>

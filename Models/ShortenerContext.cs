@@ -26,5 +26,13 @@ namespace Shortener.Models
                 optionsBuilder.UseNpgsql(_configuration.GetConnectionString("defaultConnection")!);
             }
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<URL>()
+                .HasOne(u => u.CreatedBy)
+                .WithMany()
+                .HasForeignKey(u => u.UserId);
+        }
     }
 }

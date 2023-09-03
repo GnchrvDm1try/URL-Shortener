@@ -36,7 +36,7 @@ export class LoginFormComponent {
   private getFormGroupInstance() {
     let loginForm: FormGroup;
     loginForm = this.formBuilder.group({
-      login: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.pattern("^[a-zA-Z]([a-zA-Z]| |-|')*$")]),
+      login: new FormControl(null, [Validators.required, Validators.minLength(4)]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*#?&_])[A-Za-z\\d@$!%*#?&_]{8,}$")])
     });
     return loginForm;

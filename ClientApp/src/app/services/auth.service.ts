@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import jwt_decode, { JwtPayload } from "jwt-decode";
+import jwt_decode from "jwt-decode";
 import { tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -28,6 +28,12 @@ export class AuthService {
       console.log(newToken)
     localStorage[ACCESS_TOKEN_KEY] = newToken;
     console.log(this.userToken)
+  }
+
+  get userId() {
+    if (this.userToken)
+      return (jwt_decode(this.userToken) as any).id;
+    return undefined;
   }
 
   get userLogin() {

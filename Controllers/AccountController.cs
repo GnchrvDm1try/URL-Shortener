@@ -2,12 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Shortener.Models;
+using Shortener.Models.Enums;
+using Shortener.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Shortener.Services;
-using Shortener.Models.Enums;
-using System;
 
 namespace Shortener.Controllers
 {
@@ -45,10 +44,11 @@ namespace Shortener.Controllers
                 audience: "https://localhost:7254",
                 claims: new List<Claim>()
                 {
-                        new Claim("login", user.Login),
-                        new Claim("role", role),
+                    new Claim("id", user.Id.ToString()),
+                    new Claim("login", user.Login),
+                    new Claim("role", role),
                 },
-                expires: DateTime.Now.AddMinutes(3),
+                expires: DateTime.Now.AddDays(3),
                 signingCredentials: signInCredentials
             );
 

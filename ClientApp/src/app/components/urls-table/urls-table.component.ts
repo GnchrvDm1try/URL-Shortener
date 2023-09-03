@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Url } from '../../models/url';
 import { UrlService } from '../../services/url.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-urls-table-component',
@@ -9,10 +10,16 @@ import { UrlService } from '../../services/url.service';
 })
 export class UrlsTableComponent implements OnInit {
   urls: Url[] = [];
-  private urlService: UrlService;
+  private readonly urlService: UrlService;
+  private readonly authService: AuthService;
 
-  constructor(urlService: UrlService) {
+  public get isLoggedIn(): boolean {
+    return this.authService.isUserAuthenticated();
+  }
+
+  constructor(urlService: UrlService, authService: AuthService) {
     this.urlService = urlService;
+    this.authService = authService;
   }
 
   ngOnInit(): void {
