@@ -8,7 +8,7 @@ namespace Shortener.Models
         public string Url { get; set; }
         public string ShortenUrl { get; set; }
         public DateTime CreatedAt { get; set; }
-        public int UserId { get; set; }
+        public int CreatorId { get; set; }
         public virtual User? CreatedBy { get; set; }
 
         public URL()
@@ -19,7 +19,7 @@ namespace Shortener.Models
         public URL(UrlForm form)
         {
             Url = form.Url;
-            UserId = form.CreatorId.GetValueOrDefault();
+            CreatorId = form.CreatorId.GetValueOrDefault();
             CreatedAt = DateTime.UtcNow;
             ShortenUrl = UrlShorter.GetShortenPath(this);
         }

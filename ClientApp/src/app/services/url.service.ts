@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -17,6 +17,16 @@ export class UrlService {
     this.http = http;
   }
 
+  navigate(shortenUrl: string) {
+    this.http.get(this.APIUrl + `/Navigate/${shortenUrl}`).subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error) => {
+        console.error(error);
+      });
+  }
+
   getUrls(): Observable<Url[]> {
     return this.http.get<Url[]>(this.APIUrl + '/GetAllUrls');
   }
@@ -25,7 +35,7 @@ export class UrlService {
     return this.http.get<Url>(this.APIUrl + `/Details/${id}`);
   }
 
-  async createUrl(form: FormGroup) {
-    await this.http.post(this.APIUrl + "/create", form.getRawValue(), { observe: "response", responseType: "text" as "json" }).toPromise();
+  createUrl(form: FormGroup): Observable<HttpResponse<Url>> {
+    return this.http.post<Url>(this.APIUrl + "/create", form.getRawValue(), { observe: "response", responseType: "json" });
   }
 }

@@ -32,7 +32,7 @@ namespace Shortener.Models
             modelBuilder.Entity<URL>()
                 .HasOne(u => u.CreatedBy)
                 .WithMany()
-                .HasForeignKey(u => u.UserId);
+                .HasForeignKey(u => u.CreatorId);
         }
     }
 }

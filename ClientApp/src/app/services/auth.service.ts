@@ -24,10 +24,7 @@ export class AuthService {
   private set userToken(newToken: string | null) {
     if (!newToken)
       throw new Error("Token wasn't specified");
-      console.log(this.userToken)
-      console.log(newToken)
     localStorage[ACCESS_TOKEN_KEY] = newToken;
-    console.log(this.userToken)
   }
 
   get userId() {
@@ -69,7 +66,6 @@ export class AuthService {
   isTokenExpired(token: string) {
     const decodedToken: any = jwt_decode(token);
     const expirationDate = new Date(decodedToken.exp * 1000);
-    console.log(expirationDate)
     return expirationDate < new Date();
   }
 }

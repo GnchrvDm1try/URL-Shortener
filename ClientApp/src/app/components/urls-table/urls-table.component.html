@@ -1,6 +1,6 @@
 <div>
   <h2>URLs Table:</h2>
-  <app-url-form *ngIf="isLoggedIn"></app-url-form>
+  <app-url-form *ngIf="isLoggedIn" (addEvent)="addUrl($event)"></app-url-form>
   <table>
     <tr>
       <th>id</th>
@@ -12,7 +12,7 @@
         <a [routerLink]="['Details', url.id]">{{url.id}}</a>
       </td>
       <td><a href="{{url.url}}">{{url.url}}</a></td>
-      <td>{{url.shortenUrl}}</td>
+      <td><button (click)="navigate(url.shortenUrl)">{{url.shortenUrl}}</button></td>
     </tr>
   </table>
 </div>

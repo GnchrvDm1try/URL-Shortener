@@ -26,7 +26,18 @@ export class UrlsTableComponent implements OnInit {
     this.getUrls();
   }
 
+  navigate(shortenUrl: string) {
+    this.urlService.navigate(shortenUrl)
+  }
+
   getUrls() {
     this.urlService.getUrls().subscribe(response => this.urls = response);
+  }
+
+  addUrl(url: Url) {
+    console.log(url)
+    console.log(this.urls)
+    this.urls.push(url);
+    console.log(this.urls)
   }
 }

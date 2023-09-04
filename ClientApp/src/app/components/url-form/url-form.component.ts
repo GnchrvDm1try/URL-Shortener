@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Url } from '../../models/url';
 import { AuthService } from '../../services/auth.service';
 import { UrlService } from '../../services/url.service';
 
@@ -9,6 +10,8 @@ import { UrlService } from '../../services/url.service';
   styleUrls: ['../../../styles/forms.css']
 })
 export class UrlFormComponent {
+  @Output() addEvent = new EventEmitter<Url>();
+
   form: FormGroup;
   errorMessage: string | undefined;
 
@@ -17,6 +20,7 @@ export class UrlFormComponent {
   private readonly urlService: UrlService;
 
   constructor(formBuilder: FormBuilder, authService: AuthService, urlService: UrlService) {
+
     this.formBuilder = formBuilder;
     this.authService = authService;
     this.urlService = urlService;
@@ -24,7 +28,7 @@ export class UrlFormComponent {
   }
 
   submit() {
-    this.urlService.createUrl(this.form);
+    this.urlService.createUrl(this.form).subscribe((res) => res.ok ? this.addEvent.emit(res.body as Url) : null);
   }
 
   private getFormGroupInstance() {

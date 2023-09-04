@@ -6,7 +6,7 @@ namespace Shortener.Services
     {
         public static string GetShortenPath(URL url)
         {
-            return url.UserId.ToString() + url.CreatedAt.Ticks.ToString();
+            return url.CreatorId.ToString() + url.CreatedAt.Ticks.ToString();
         }
     }
 }

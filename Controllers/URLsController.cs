@@ -36,7 +36,7 @@ namespace Shortener.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             var uRL = await _context.URLs
-                .Include(u => u.CreatedBy)
+                //.Include(u => u.CreatedBy)
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             if (uRL == null)
@@ -53,10 +53,10 @@ namespace Shortener.Controllers
             if (ModelState.IsValid)
             {
                 url = new URL(form);
-                _context.Add(Url);
+                await _context.URLs.AddAsync(url);
                 await _context.SaveChangesAsync();
             }
-            return url is null ? Ok(url) : BadRequest();
+            return url is not null ? Ok(url) : BadRequest("Failed to create url");
         }
 
         // GET: URLs/Edit/5
